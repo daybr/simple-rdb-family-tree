@@ -41,15 +41,18 @@ BEGIN
         IF NOT cur%NOTFOUND THEN
             /* UNDER-ROOT ROW: PID is MATE_P PID of ROOT! */
             FETCH cur INTO temp_level, temp_hid, root_mate_p_pid, temp_fhid, temp_mhid;
-        ELSE
-            /* Only one row exists */
-            root_mate_p_pid := GET_MATE_P_PID(temp_hid);
+            IF cur%NOTFOUND THEN
+                /* Only one row exists */
+                root_mate_p_pid := GET_MATE_P_PID(temp_hid);
+            END IF;
         END IF;
     CLOSE cur;
     RETURN root_mate_p_pid;
 END;
 /
 
-SELECT HID, NAME, SPEAR_LINE_ROOT_OF_FA(HID) AS ROOT_MATE_P_PID, GET_MATE_P_PID(HID)
-    FROM HUMAN
+SELECT H.HID, H.NAME, GET_MATE_P_PID(H.HID) AS MATE_P_PID,
+        PN.PID AS ROOT_MATE_P_PID, PN.FHNAME AS ROOT_FA, PN.MHNAME AS ROOT_MA
+    FROM HUMAN H LEFT OUTER JOIN PARENTS_WITH_NAMES PN ON (PN.PID = SPEAR_LINE_ROOT_OF_FA(H.HID))
     ORDER BY BIRTH;
+
