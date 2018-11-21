@@ -44,11 +44,7 @@ BEGIN
         RETURN GET_MATE_P_PID(START_HID);
     END IF;
     IF temp_fhid IS NULL THEN
-        IF temp_mhid IS NOT NULL THEN
-            /* The person has a mother but no father */
-            RETURN GET_MATE_P_PID(START_HID);
-        END IF;
-        /* Empty parents case */
+        /* No father or empty parents */
         RETURN temp_pid;
     END IF;
     OPEN cur;
@@ -89,11 +85,7 @@ BEGIN
         /* Has a mother */
         RETURN SPEAR_LINE_ROOT_OF_FA(start_mhid);
     END IF;
-    IF start_fhid IS NOT NULL THEN
-        /* Has a father but no mother */
-        RETURN GET_MATE_P_PID(start_hid);
-    END IF;
-    /* Empty parents case */
+    /* No mother or empty parents */
     RETURN start_pid;
 END;
 /
