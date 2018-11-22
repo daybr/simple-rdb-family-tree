@@ -13,18 +13,18 @@
 */
 
 DECLARE
-    gradpa_pid NUMBER;
+    grandfa_pid RAW(16);
 BEGIN
     INSERT INTO PARENTS VALUES (
         SYS_GUID(),
         NULL,
         NULL,
         NULL
-    ) RETURNING PID INTO :grandpa_pid;
+    ) RETURNING PID INTO grandfa_pid;
     /* 할아버지 추가 */
-    INSERT INTO HUMAN VALUES (SYS_GUID(), '할아버지', 'M', '2002-06-15', NULL, :grandpa_pid, NULL);
+    INSERT INTO HUMAN VALUES (SYS_GUID(), '할아버지', 'M', '2002-06-15', NULL, grandfa_pid, NULL);
     /* 작은할아버지 추가 */
-    INSERT INTO HUMAN VALUES (SYS_GUID(), '작은할아버지', 'M', '2002-06-17', NULL, :grandpa_pid, NULL);
+    INSERT INTO HUMAN VALUES (SYS_GUID(), '작은할아버지', 'M', '2002-06-17', NULL, grandfa_pid, NULL);
 END;
 /
 
