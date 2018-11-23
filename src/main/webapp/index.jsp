@@ -10,11 +10,13 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <!-- Main CSS -->
-<link rel="stylesheet" type="text/css" media="screen" href=css/main.css />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/main.css" />
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://d3js.org/d3.v3.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -22,18 +24,23 @@
 		<p class="test-red">CSS test</p>
 		<button type="button" class="btn btn-outline-primary">Bootstrap
 			4 test</button>
-		<p><br></p>
+		<p>
+			<br>
+		</p>
 		<%
 			if (OJDBCAdapter.verifyDriver()) {
 		%>
-			<p>Driver verified!</p>
-		<% 
+		<p>Driver verified!</p>
+		<%
 			} else {
 		%>
-			<p>Cannot find OJDBC!</p>
+		<p>Cannot find OJDBC!</p>
 		<%
 			}
 		%>
 	</div>
+		<div id="graph"></div>
 </body>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/graph.js"></script>
 </html>
