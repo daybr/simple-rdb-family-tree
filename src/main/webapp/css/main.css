@@ -1,5 +1,25 @@
-@charset "UTF-8";
+body {
+    font: 10px sans-serif;
+}
 
 .test-red {
 	color: red;
 }
+.link {
+    fill: none;
+    stroke: #000;
+}
+.sibling {
+    fill: none;
+    stroke: blue;
+}
+.border {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: #aaa;
+}
+.node {
+    stroke: red;
+    fill:white;
+}
+
