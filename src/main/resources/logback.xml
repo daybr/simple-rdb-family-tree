@@ -2,7 +2,7 @@
 <!DOCTYPE configuration>
 <configuration debug="true" scan="true"
 	scanperiod="60 seconds">
-	<property name="LOG_DIR" value="${catalina.base}" />
+	<property name="LOG_DIR" value="${catalina.base}/logs" />
 
 	<appender class="ch.qos.logback.core.ConsoleAppender"
 		name="STDOUT">
