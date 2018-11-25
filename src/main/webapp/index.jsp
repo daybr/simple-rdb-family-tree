@@ -28,7 +28,7 @@
 			<br>
 		</p>
 		<%
-			if (OJDBCAdapter.verifyDriver()) {
+			if (OJDBCAdapter.getInstance().verifyDriver()) {
 		%>
 		<p>Driver verified!</p>
 		<%

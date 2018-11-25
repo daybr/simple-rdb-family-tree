@@ -1,28 +1,28 @@
 CREATE GLOBAL TEMPORARY TABLE HUMAN_DIRECT_TEMP (
-    LEV INT NOT NULL,
-    HID RAW(16),
-    PID RAW(16),
-    FHID RAW(16),
-    MHID RAW(16)
+    LEV     INT NOT NULL,
+    HID     RAW(16),
+    PID     RAW(16),
+    FHID    RAW(16),
+    MHID    RAW(16)
 ) ON COMMIT DELETE ROWS;
 
 CREATE GLOBAL TEMPORARY TABLE HUMAN_FAMILY_TREE (
-    LEV INT,
-    CHON INT,
-    HID RAW(16) NOT NULL,
-    NAME VARCHAR2(30) NOT NULL,
-    SEX CHAR,
-    BIRTH DATE,
-    DEATH DATE,
-    PID RAW(16),
-    SIBORD INT,
-    MATE_P_PID RAW(16),
-    MATE_HID RAW(16),
-    MATE_NAME VARCHAR2(30),
-    MATE_SEX CHAR,
-    MATE_BIRTH DATE,
-    MATE_DEATH DATE,
-    MATE_PID RAW(16)
+    LEV         INT,
+    CHON        INT,
+    HID         RAW(16) NOT NULL,
+    NAME        VARCHAR2(30) NOT NULL,
+    SEX         CHAR,
+    BIRTH       DATE,
+    DEATH       DATE,
+    PID         RAW(16),
+    SIBORD      INT,
+    MATE_P_PID  RAW(16),
+    MATE_HID    RAW(16),
+    MATE_NAME   VARCHAR2(30),
+    MATE_SEX    CHAR,
+    MATE_BIRTH  DATE,
+    MATE_DEATH  DATE,
+    MATE_PID    RAW(16)
 ) ON COMMIT DELETE ROWS;
 
 /* 자신의 Mate_P PID 한 개 찾기 */
@@ -45,17 +45,17 @@ END;
 /
 
 CREATE OR REPLACE PROCEDURE DIRECT_SPEAR_LINE_OF_FA (
-        START_HID IN HUMAN.HID%TYPE,
+        START_HID       IN  HUMAN.HID%TYPE,
         ROOT_MATE_P_PID OUT PARENTS.PID%TYPE,
-        LEV_OFFSET IN INT DEFAULT 0
+        LEV_OFFSET      IN  INT DEFAULT 0
     )
 IS
-    cur SYS_REFCURSOR;
-    temp_lev INT;
-    temp_hid HUMAN.HID%TYPE;
-    temp_pid PARENTS.PID%TYPE;
-    temp_fhid HUMAN.HID%TYPE;
-    temp_mhid HUMAN.HID%TYPE;
+    cur         SYS_REFCURSOR;
+    temp_lev    INT;
+    temp_hid    HUMAN.HID%TYPE;
+    temp_pid    PARENTS.PID%TYPE;
+    temp_fhid   HUMAN.HID%TYPE;
+    temp_mhid   HUMAN.HID%TYPE;
 BEGIN
     /* Clear HUMAN_DIRECT_TEMP */
     DELETE FROM HUMAN_DIRECT_TEMP;
@@ -98,13 +98,13 @@ END;
 /
 
 CREATE OR REPLACE PROCEDURE DIRECT_SPEAR_LINE_OF_MA (
-        START_HID IN HUMAN.HID%TYPE,
+        START_HID       IN  HUMAN.HID%TYPE,
         ROOT_MATE_P_PID OUT PARENTS.PID%TYPE
     )
 IS
-    start_pid PARENTS.PID%TYPE;
-    start_fhid HUMAN.HID%TYPE;
-    start_mhid HUMAN.HID%TYPE;
+    start_pid   PARENTS.PID%TYPE;
+    start_fhid  HUMAN.HID%TYPE;
+    start_mhid  HUMAN.HID%TYPE;
 BEGIN
     SELECT H.PID, P.FHID, P.MHID INTO start_pid, start_fhid, start_mhid
         FROM HUMAN H LEFT OUTER JOIN PARENTS P ON H.PID = P.PID
@@ -130,14 +130,14 @@ END;
 /
 
 CREATE OR REPLACE PROCEDURE MAKE_FAMILY_TREE (
-        START_HID IN HUMAN.HID%TYPE,
+        START_HID       IN  HUMAN.HID%TYPE,
         ROOT_MATE_P_PID OUT PARENTS.PID%TYPE,
-        IS_FATHER_SIDE IN CHAR DEFAULT 'Y'
+        IS_FATHER_SIDE  IN  CHAR DEFAULT 'Y'
     )
 IS
-    cur SYS_REFCURSOR;
-    root_level INT;
-    root_pid PARENTS.PID%TYPE;
+    cur         SYS_REFCURSOR;
+    root_level  INT;
+    root_pid    PARENTS.PID%TYPE;
 BEGIN
     DELETE FROM HUMAN_FAMILY_TREE;
     /* Populate temp table HUMAN_DIRECT_TEMP */
