@@ -39,6 +39,7 @@ public class OJDBCAdapter {
 	}
 
 	public Connection getConnection(boolean usingPropertiesFile) throws SQLException {
+		verifyDriver();
 		Connection conn = null;
 		if (!usingPropertiesFile) {
 			// Use default only
