@@ -116,8 +116,6 @@
 			</div>
 		</div>
 
-	</div>
-
 
 	<!-- load JS files -->
 	<script

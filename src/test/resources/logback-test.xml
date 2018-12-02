@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration debug="true" scan="true"
+	scanperiod="60 seconds">
+	<property name="LOG_DIR" value="${catalina.base}" />
+
+	<appender class="ch.qos.logback.core.ConsoleAppender"
+		name="STDOUT">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<root level="debug">
+		<appender-ref ref="STDOUT">
+		</appender-ref>
+	</root>
+
+</configuration>
