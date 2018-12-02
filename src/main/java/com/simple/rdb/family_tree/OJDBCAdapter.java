@@ -39,14 +39,19 @@ public class OJDBCAdapter {
 	}
 
 	public Connection getConnection(boolean usingPropertiesFile) throws SQLException {
+		Connection conn = null;
 		if (!usingPropertiesFile) {
 			// Use default only
-			return DriverManager.getConnection(
+			conn = DriverManager.getConnection(
 					DB_PROP_DEFAULT_URL, DB_PROP_DEFAULT_USERNAME, DB_PROP_DEFAULT_PASSWORD);
+		} else {
+			conn = DriverManager.getConnection(prop.getProperty("url", DB_PROP_DEFAULT_URL),
+					prop.getProperty("username", DB_PROP_DEFAULT_USERNAME),
+					prop.getProperty("password", DB_PROP_DEFAULT_PASSWORD));
 		}
-		return DriverManager.getConnection(prop.getProperty("url", DB_PROP_DEFAULT_URL),
-				prop.getProperty("username", DB_PROP_DEFAULT_USERNAME),
-				prop.getProperty("password", DB_PROP_DEFAULT_PASSWORD));
+		// Disable auto commit
+		conn.setAutoCommit(false);
+		return conn;
 	}
 
 	public void readProperties() {

@@ -15,7 +15,7 @@ public class SelectViewsTest {
 
 	@Test(expected = Test.None.class)
 	public void selectHumanWithParents() throws Exception {
-		try (Connection conn = OJDBCAdapter.getInstance().getConnection(false)) {
+		try (Connection conn = OJDBCAdapter.getInstance().getConnection(true)) {
 			try (PreparedStatement pstmtSelect
 					= conn.prepareStatement("SELECT * FROM HUMAN_WITH_PARENTS")) {
 				try (ResultSet rs = pstmtSelect.executeQuery()) {
@@ -33,7 +33,7 @@ public class SelectViewsTest {
 
 	@Test(expected = Test.None.class)
 	public void selectParentsWithNames() throws Exception {
-		try (Connection conn = OJDBCAdapter.getInstance().getConnection(false)) {
+		try (Connection conn = OJDBCAdapter.getInstance().getConnection(true)) {
 			try (PreparedStatement pstmtSelect
 					= conn.prepareStatement("SELECT * FROM PARENTS_WITH_NAMES")) {
 				try (ResultSet rs = pstmtSelect.executeQuery()) {
