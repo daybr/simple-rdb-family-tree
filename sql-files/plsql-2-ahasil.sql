@@ -84,7 +84,7 @@ BEGIN
     OPEN cur FOR SELECT * FROM HUMAN_DIRECT_TEMP ORDER BY LEV DESC;
         /* ROOT ROW */
         FETCH cur INTO temp_lev, temp_hid, temp_pid, temp_fhid, temp_mhid;
-        IF NOT cur%NOTFOUND THEN
+        IF cur%FOUND THEN
             IF temp_pid IS NOT NULL THEN
                 /* Empty parents of (current) root */
                 ROOT_MATE_P_PID := temp_pid;
